@@ -23,7 +23,79 @@ async function getById(id) {
     return result;
 }
 
+async function getAll() {
+
+    const result = await db.query(
+        `SELECT flights.id,
+        origin.name AS origin,
+        destination.name AS destination,
+        TO_CHAR(flights.date, 'DD-MM-YYYY') AS "date"
+        FROM "flights"
+        JOIN "cities" AS origin ON flights.origin = origin.id
+        JOIN "cities" AS destination ON flights.destination = destination.id
+        ORDER BY flights.date DESC;`
+    )
+    return result;
+}
+
+async function getAllByOrigin(origin) {
+
+    const result = await db.query(
+        `SELECT flights.id,
+        origin.name AS origin,
+        destination.name AS destination,
+        TO_CHAR(flights.date, 'DD-MM-YYYY') AS "date"
+        FROM "flights"
+        JOIN "cities" AS origin ON flights.origin = origin.id
+        JOIN "cities" AS destination ON flights.destination = destination.id
+        WHERE origin.name = $1
+        ORDER BY flights.date DESC;`,
+        [origin]
+    )
+    return result;
+}
+
+async function getAllByDestination(destination) {
+
+    const result = await db.query(
+        `SELECT flights.id,
+        origin.name AS origin,
+        destination.name AS destination,
+        TO_CHAR(flights.date, 'DD-MM-YYYY') AS "date"
+        FROM "flights"
+        JOIN "cities" AS origin ON flights.origin = origin.id
+        JOIN "cities" AS destination ON flights.destination = destination.id
+        WHERE destination.name = $1
+        ORDER BY flights.date DESC;`,
+        [destination]
+    )
+    return result;
+}
+
+async function getAllbyOriginAndDestination(origin, destination) {
+
+    const result = await db.query(
+        `SELECT flights.id,
+        origin.name AS origin,
+        destination.name AS destination,
+        TO_CHAR(flights.date, 'DD-MM-YYYY') AS "date"
+        FROM "flights"
+        JOIN "cities" AS origin ON flights.origin = origin.id
+        JOIN "cities" AS destination ON flights.destination = destination.id
+        WHERE origin.name = $1 AND destination.name = $2
+        ORDER BY flights.date DESC;`,
+        [origin, destination]
+    )
+    return result;
+}
+
+
+
 export const flightsRepository = {
     create,
-    getById
+    getById,
+    getAll,
+    getAllByOrigin,
+    getAllByDestination,
+    getAllbyOriginAndDestination
 }

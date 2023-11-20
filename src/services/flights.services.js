@@ -28,6 +28,39 @@ async function create(flightData) {
     return flightId;
 }
 
+async function getAll(origin = null, destination = null) {
+    
+    if (!origin && !destination) {
+        
+        const flights = await flightsRepository.getAll()
+        if(flights.rowCount == 0) return [];
+        
+        return flights.rows;
+    
+    } else if (!destination) {
+        
+        const flights = await flightsRepository.getAllByOrigin(origin)
+        if(flights.rowCount == 0) return [];
+        
+        return flights.rows;
+
+    } else if (!origin) {
+
+        const flights = await flightsRepository.getAllByDestination(destination)
+        if (flights.rowCount == 0) return [];
+
+        return flights.rows;
+        
+    } else {
+        const flights = await flightsRepository.getAllbyOriginAndDestination(origin, destination)
+        if (flights.rowCount == 0) return [];
+
+        return flights.rows;
+    }
+
+}
+
 export const flightsServices = {
-    create
+    create,
+    getAll
 }

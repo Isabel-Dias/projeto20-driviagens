@@ -29,6 +29,18 @@ async function create(req, res) {
     
 }
 
+async function getAll(req, res) {
+    
+    const origin = req.query.origin;
+	const destination = req.query.destination;
+    
+    const flights = await flightsServices.getAll(origin, destination)
+
+    res.status(httpStatus.ACCEPTED).send(flights);
+    
+}
+
 export const flightsController = {
-    create
+    create,
+    getAll
 }
