@@ -13,6 +13,17 @@ async function create(flightData) {
     return result.rows[0].id
 }
 
+async function getById(id) {
+
+    const result = await db.query(
+        `SELECT * FROM "flights"
+        WHERE "id" = $1`,
+        [id]
+    )
+    return result;
+}
+
 export const flightsRepository = {
-    create
+    create,
+    getById
 }
