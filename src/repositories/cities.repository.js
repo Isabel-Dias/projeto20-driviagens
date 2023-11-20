@@ -17,8 +17,18 @@ async function getByName(cityName) {
     return result
 }
 
+async function getById(cityId) {
+    const result = await db.query(
+        `SELECT * FROM "cities" 
+        WHERE "id" = $1`,
+        [cityId]
+    )
+    return result
+}
+
 
 export const citiesRepository = {
     create,
-    getByName
+    getByName,
+    getById
 }

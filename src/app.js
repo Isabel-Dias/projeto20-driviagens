@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import errorHandler from './middlewares/errorHandler.middleware.js';
 import passengerRoutes from './routes/passengers.routes.js'
 import citiesRoutes from './routes/cities.routes.js'
+import flightsRoutes from './routes/flights.routes.js'
 
 dotenv.config()
 //TIRAR A LINHA ABAIXO ANTES DE ENTREGAR
@@ -17,6 +18,7 @@ app.use(express.json())
 
 app.use(passengerRoutes);
 app.use(citiesRoutes);
+app.use(flightsRoutes);
 app.use(errorHandler);
 
 const port = process.env.PORT || 5000
