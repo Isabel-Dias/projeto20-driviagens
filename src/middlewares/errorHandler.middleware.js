@@ -15,5 +15,5 @@ export default function errorHandler(error, req, res, next) {
     return res.status(httpStatus.CONFLICT).send(error.message);
   }
 
-  //INSERIR ERRO GENÉRICO 500
+  return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error.message);
 }

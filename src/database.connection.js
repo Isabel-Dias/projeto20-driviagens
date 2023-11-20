@@ -11,8 +11,6 @@ const configDatabase = {
 
 
 if (process.env.NODE_ENV === "production") configDatabase.ssl = true;
-//TIRAR A LINHA ABAIXO ANTES DE ENTREGAR
-configDatabase.ssl = true;
 
 const db = new Pool(configDatabase);
 

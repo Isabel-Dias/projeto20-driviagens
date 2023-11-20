@@ -3,21 +3,19 @@ import "express-async-errors"
 import cors from 'cors';
 import dotenv from "dotenv";
 import errorHandler from './middlewares/errorHandler.middleware.js';
-import passengerRoutes from './routes/passengers.routes.js'
+import passengersRoutes from './routes/passengers.routes.js'
 import citiesRoutes from './routes/cities.routes.js'
 import flightsRoutes from './routes/flights.routes.js'
 import travelsRoutes from './routes/travels.routes.js'
 
 dotenv.config()
-//TIRAR A LINHA ABAIXO ANTES DE ENTREGAR
-process.env.NODE_TLS_REJECT_UNAUTHORIZED='0'
 
 const app = express();
 
 app.use(cors());
 app.use(express.json())
 
-app.use(passengerRoutes);
+app.use(passengersRoutes);
 app.use(citiesRoutes);
 app.use(flightsRoutes);
 app.use(travelsRoutes);
